@@ -1,30 +1,35 @@
--- -- Ex1
+-- Ex1
 
--- (||) :: Bool -> Bool -> Bool
--- False || False = False
--- False || True = True
--- True || False = True
--- True || True = True
+meOr1 :: Bool -> Bool -> Bool
+meOr1 x y = if x == True
+                then True
+                else if (y == True) 
+                    then True
+                    else False
 
--- False || False = False
--- _ || _ = True
+meOr2 :: Bool -> Bool -> Bool
+meOr2 x y 
+    | x == True = True  
+    | y == True = True
+    | otherwise = False
 
--- False || b = b
--- True || _ = True
+meOr3 :: Bool -> Bool -> Bool
+meOr3 False False = False
+meOr3 False  True = True
+meOr3 True  False = True
+meOr3 True  True = True
 
--- (||) :: Bool -> Bool -> Bool
--- (||) x y = if x == True then True
---             else (y == True then True)
---             else False
+meOr4 :: Bool -> Bool -> Bool
+meOr4 False False   = False
+meOr4 _ _ = True
 
--- (||) x y 
---     | x == True = True
---     | y == True = True
---     | otherwise False
+meOr5 :: Bool -> Bool -> Bool
+meOr5 False b = b
+meOr5 True  _ = True
 
 -- --Ex 2
-dist :: (Float,Float,Float) -> (Float,Float,Float) -> Float
-dist (a1,b2,c3) (a,b,c)  = sqrt( (a1- a)^2 + (b2 + b)^2 + (c3 + c)^2 )
+dist :: (Float,Float) -> (Float,Float) -> Float
+dist (a1,b2) (a,b)  = sqrt( (a1- a)^2 + (b2 + b)^2 )
 
 -- --Ex 3
 
@@ -86,7 +91,7 @@ divInteira(m,   n)
 
 restoDiv :: (Int,Int) -> Int
 restoDiv(m,n)
-    | m < n = m
+    | m <= n = m
     | otherwise = restoDiv((m - n), n)
 
 --Ex 9
@@ -115,7 +120,11 @@ binoc(n,k) = if(k ==n) then 1
                 else binoc(n-1,k) + binoc(n-1,k-1)
 
 --Ex 11
+passo :: Int -> (Int,Int)
+passo 1 = (1,1)
+passo n = ( snd (passo (n-1)), fst (passo (n-1)) + snd( passo(n-1)))
 
-
-
+fibo2 :: Int -> Int 
+fibo2  1 = 1
+fibo2 n =  fst (passo n)
 
