@@ -70,13 +70,10 @@ precede (d1, m1, y1) (d2, m2, y2)
  | y1 == y2 && m1 == m2 && d1 > d2 = False
  | otherwise = True
 
-returnData :: Emprestimo -> Data    
-returnData (_,_,_,d,_) = d;
-
---Ex 11 
-
 atrasados :: Emprestimos -> Data -> Emprestimos
 atrasados emp hoje = [(a,b,c,dataEntrega,e) | (a,b,c,dataEntrega,e) <- emp, precede dataEntrega hoje  == True]
+
+--Ex 11 
 
 uniaoNRec :: [Int] -> [Int] -> [Int]
 uniaoNRec listA listB =  listA ++ [ indexListB | indexListB <- listB, elem indexListB listA == False]
