@@ -125,3 +125,82 @@ seleciona_multiplos n listaInteiros = [ x | x <- listaInteiros, mod x n == 0]
 
 unica_ocorrencia :: Int -> [Int] -> Bool
 unica_ocorrencia n lista =  length [ x | x <- lista, x==n ] == 1
+
+--12)
+
+intercala :: [t] -> [t] -> [t] 
+intercala [] [] = []
+intercala listaMaiorx [] = listaMaiorx
+intercala [] listaMaiory  = listaMaiory
+intercala (x:restox) (y:restoy) = x:( intercala (y:restoy) restox )  
+
+--13)
+
+zipar :: [t] -> [t] -> [[t]]
+zipar [] _ = []
+zipar _ [] = []
+zipar (x:restox) (y:restoy) = [x,y]:(zipar restox restoy )
+
+--14)
+
+type Contatos = ([Char],[Char],Int,[Char])
+
+agendaPessoal :: [Contatos]
+agendaPessoal = [("Roberta","Minas Gerais",3496545789,"roberta_01@email.com"),
+    ("Marcelo","Rio Grande do Sul",105456876546,"marcelo_d1@gmail.com"),
+    ("Davi","São Paulo",21998654321,"davi_alves@outlook.com"),
+    ("Daniela","Rio de Janeiro",45687915463,"daniela4503@gmail.com")] 
+
+retornaNome :: Contatos -> [Char]
+retornaNome (nome,b,c,d) = nome
+
+retornaEmail :: Contatos -> [Char]
+retornaEmail (a,b,c,email) = email
+
+achaContato :: [Char] -> [Contatos] -> [Char]
+achaContato _ [] = "Email desconhecido"   
+achaContato email (head:tale) = if(email == (retornaEmail head) ) then  (retornaNome head)
+                                                  else  (achaContato email tale)
+
+--15)
+
+
+--16)
+
+insere_ord :: Ord t => t -> [t] -> [t]
+insere_ord n [] = [n]
+insere_ord n (x:resto) = if(n > x ) then x:(insere_ord n resto)
+                                    else if(n < x) then ([n] ++ (x:resto))
+                                                   else (x:resto)
+
+
+--17)
+
+reverte :: [t] -> [t]
+reverte [] = []
+reverte (x:resto) = reverte resto ++ [x]
+
+--18)
+
+tiraRepetido ::Eq t =>  t -> [t] -> [t]
+tiraRepetido _ [] = []
+tiraRepetido n (x:resto) = if(n == x) then (tiraRepetido n resto ) 
+                                      else (x:tiraRepetido n resto)  
+
+elimina_repet :: Eq t => [t] -> [t] 
+elimina_repet [] = []
+elimina_repet (x:resto) = [x] ++ elimina_repet ( tiraRepetido x resto )
+
+--19)
+
+disponiveis = [1,2,5,10,20,50,100]
+
+arranjaNota :: Integer -> [Integer] -> [Integer]
+arranjaNota 0 lista = []
+arranjaNota n (x:resto) = if( n < 0 ) then []
+                          else x:( arranjaNota (n-x) (x:resto) ) 
+
+notasTroco :: Int -> [[Int]]
+notasTroco n = [ (arranjaNota n disponiveis) | x <- disponiveis]
+
+--TODO revisao codigo para casos base
