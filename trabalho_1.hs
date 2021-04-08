@@ -1,7 +1,5 @@
 --Ex 1
 
-
-
 analisa_raizes :: Int -> Int -> Int -> [Char]
 analisa_raizes a b c 
     | a == 0 = "4-equacao degenerada"
@@ -9,9 +7,9 @@ analisa_raizes a b c
     | b^2 == 4*a*c = "2-possui uma raiz real"
     | otherwise = "3-nenhuma raiz real"
 
+
+
 -- Ex 2
-
-
 
 raizEquacao1 :: Double -> Double -> Double 
 raizEquacao1 b c = -c/b
@@ -84,15 +82,13 @@ gera5 = [ fst x + snd x | x <- gera4 ]
 
 
 
+
 --5)
-
-
 
 --a)
 
 contaNegM2 :: [Int] -> Int
 contaNegM2 lista = sum [ 1 | x <- lista, mod x 3 == 0, x > 0 ]
-
 
 
 --b)
@@ -320,25 +316,29 @@ elimina_repet (x:resto) = [x] ++ elimina_repet ( tiraRepetido x resto )
 
 disponiveis = [1,2,5,10,20,50,100]
 
--- arranjaNota :: Integer -> [Integer] -> [Integer]
--- arranjaNota 0 lista = []
--- arranjaNota n (x:resto) = if( n < 0 ) then []
---                           else x:( arranjaNota (n-x) (x:resto) ) 
-
--- notasTroco :: Int -> [[Int]]
--- notasTroco n = [ (arranjaNota n disponiveis) | x <- disponiveis]
-
-delete :: Eq a => a -> [a] -> [a]
-delete _ [] = []
-delete elem (x:resto)  
-    | elem == x = delete elem resto
-    | otherwise = x:(delete elem resto)
+notasTroco :: Int -> [[Int]]
+notasTroco 0 = [[]]
+notasTroco n = [ x:cauda | x <- disponiveis, x <= n ,cauda <- notasTroco (n - x)  ]
 
 
-perm :: Eq a => [a] -> [[a]]
-perm  [] = [[]]
-perm (x:resto) = [ c:r | c <- (x:resto), r <- perm(resto) ]
 
+--20)
 
+eliminaBaixo :: Eq a => a -> [a] -> Bool
+eliminaBaixo _ [] = False
+eliminaBaixo n (x:resto) = if(x == n) then True else eliminaBaixo n resto 
+
+verificaDiagonais :: Int -> [Int] -> Bool
+verificaDiagonais n [] = True
+verificaDiagonais n (x:resto) 
+    | abs(n - x) >= 2  = True 
+    | otherwise = False
+
+caminhos :: Int -> Int -> [[Int]]
+caminhos _ 0 = [[]]
+caminhos t n = [ x:y | x <- [1..t], y <- caminhos t (n-1), (eliminaBaixo x y) == False, (verificaDiagonais x y ) == True]
+
+nRainhas :: Int -> [[Int]]
+nRainhas n = caminhos n n
 
 --TODO revisao codigo para casos base
