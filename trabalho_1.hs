@@ -15,7 +15,7 @@ raizEquacao1 :: Double -> Double -> Double
 raizEquacao1 b c = -c/b
 
 raizEquacao2 :: Double -> Double -> Double -> (Double, Double)
-raizEquacao2 a b c = ( ( -b + (delta a b c) ) / 2*a , ( -b - (delta a b c) ) / 2*a )
+raizEquacao2 a b c = ( ( -b + (delta a b c) ) / (2*a) , ( -b - (delta a b c) ) / (2*a) )
 
 delta :: Double -> Double -> Double -> Double
 delta a b c = sqrt(b*b - 4*a*c) 
@@ -73,13 +73,12 @@ gera3 = [ y | x <- listaL1 , y<- listINTEIROS, y<=x ]
 --d)
 
 --(11) ? 
-gera4 = [(x,x+1) | x <- listINTEIROS, x <= 10 ]
+gera4 = [(x,x+1) | x <- listINTEIROS, x <= 10, even x ]
 
 
 --e)
 
 gera5 = [ fst x + snd x | x <- gera4 ]
-
 
 
 
@@ -104,7 +103,7 @@ fatores :: Int -> [Int]
 fatores num = [ y | y <- [1..num], mod num y == 0 ]
 
 primos :: Int -> Int -> [Int]
-primos numA numB = [ x | x <- [numA..numB], length ( fatores x) == 2 ]
+primos numA numB = [ x | x <- [numA..numB], length ( fatores x ) == 2 ]
 
 
 
