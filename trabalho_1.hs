@@ -327,6 +327,17 @@ eliminaBaixo :: Eq a => a -> [a] -> Bool
 eliminaBaixo _ [] = False
 eliminaBaixo n (x:resto) = if(x == n) then True else eliminaBaixo n resto 
 
+elemRepetido :: [Int] -> Bool
+elemRepetido [] = False
+elemRepetido (x:resto)
+    | (eliminaBaixo x resto == False ) = elemRepetido resto
+    | otherwise = True
+
+difList :: Int -> [Int] -> [Int]
+difList a (x:resto) 
+    | (resto == []) = [ x - a ]
+    | otherwise =  [ x - a ] ++ difList (a+1) resto
+
 verificaDiagonais :: Int -> [Int] -> Bool
 verificaDiagonais n [] = True
 verificaDiagonais n (x:resto) 
@@ -335,7 +346,8 @@ verificaDiagonais n (x:resto)
 
 caminhos :: Int -> Int -> [[Int]]
 caminhos _ 0 = [[]]
-caminhos t n = [ x:y | x <- [1..t], y <- caminhos t (n-1), (eliminaBaixo x y) == False, (verificaDiagonais x y ) == True]
+caminhos t n = [ x:y | x <- [1..t], y <- caminhos t (n-1), (eliminaBaixo x y) == False, (verificaDiagonais x y ) == True,
+   (elemRepetido( difList 0 (x:y) ) == False ) ]
 
 nRainhas :: Int -> [[Int]]
 nRainhas n = caminhos n n
