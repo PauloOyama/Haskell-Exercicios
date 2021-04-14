@@ -32,7 +32,7 @@ uniao as bs = as ++ [ b | b <- bs, not ( pertence b as)]
 npares :: [Int] -> Int 
 npares [] = 0
 npares (x:resto) =  if( mod x 2 == 0 ) then ( 1 + npares resto)
-                                        else ( 0 + npares resto)
+                                       else ( 0 + npares resto)
 
 --3)
 
